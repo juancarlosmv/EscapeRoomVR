@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 7345494585091927571}
   - component: {fileID: 7345494585091927569}
   - component: {fileID: 7345494585091927568}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Fuse
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -170,3 +170,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89286d6f3c88be649a28e6d2c469d609, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CanBeGrabbed: 1

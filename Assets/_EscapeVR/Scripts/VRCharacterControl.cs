@@ -49,7 +49,7 @@ public class VRCharacterControl : MonoBehaviour {
         trueUp.Normalize();
         Quaternion rot = Quaternion.Euler(transform.rotation.eulerAngles + trueUp * m_force * secondaryAxix.x / 3.0f);
         m_rigidBody.MoveRotation(rot);
-        Debug.Log(trueUp * m_force * secondaryAxix.x);
+        //Debug.Log(trueUp * m_force * secondaryAxix.x);
         if (OVRInput.Get(OVRInput.Touch.PrimaryThumbRest))
         {
             
