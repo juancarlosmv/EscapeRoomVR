@@ -7,6 +7,8 @@ public class GrabableObj : MonoBehaviour
     Grabber hand;
     Interactable interactable;
     private int originalLayer;
+    [HideInInspector]
+    public bool CanBeGrabbed = true;
 
     public int OriginalLayer => originalLayer;
     
@@ -22,15 +24,18 @@ public class GrabableObj : MonoBehaviour
     // en el OnClickEvent
     public void GetGrabbed()
     {
-        // Si ya lo tenemos cogido con la otra mano, lo "robamos" a la fuerza
-        if (hand != null) hand.Ungrab(forceUngrab: true);
-        hand = interactable.GetInteracter().GetGrabber();
-        if(hand == null)
+        if (CanBeGrabbed)
         {
-            Debug.Log("No hay un grabber");
-            return;
+            // Si ya lo tenemos cogido con la otra mano, lo "robamos" a la fuerza
+            if (hand != null) hand.Ungrab(forceUngrab: true);
+            hand = interactable.GetInteracter().GetGrabber();
+            if (hand == null)
+            {
+                Debug.Log("No hay un grabber");
+                return;
+            }
+            hand.Grab(this);
         }
-        hand.Grab(this);
     }
 
 
@@ -39,4 +44,6 @@ public class GrabableObj : MonoBehaviour
     {
         hand = null;
     }
+
+    public Grabber GetGrabber() => hand;
 }
