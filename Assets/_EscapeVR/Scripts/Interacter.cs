@@ -119,7 +119,7 @@ public class Interacter : MonoBehaviour
             }
         }
         // Si no colisiona, establecer a mano un punto de fin del laser
-        else lr.SetPosition(1, transform.forward * 1000);
+        else lr.SetPosition(1, transform.position + transform.forward * 1000);
     }
 
 
