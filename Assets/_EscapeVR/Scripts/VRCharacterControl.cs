@@ -13,27 +13,9 @@ public class VRCharacterControl : MonoBehaviour {
     }
 	
 	// Update is called once per frame
-	void FixedUpdate () {
+	void Update () {
         Vector2 primaryAxix = OVRInput.Get(OVRInput.Axis2D.PrimaryThumbstick);
         Vector2 secondaryAxix = OVRInput.Get(OVRInput.Axis2D.SecondaryThumbstick);
-        /*
-        if (OVRInput.Get(OVRInput.Button.PrimaryIndexTrigger) || Input.GetMouseButton(0) )
-        {
-            Debug.Log("moving");
-            Vector3 floorProjected = m_movementDirection.transform.forward;
-            floorProjected.y = 0;
-            floorProjected.Normalize();
-            m_rigidBody.AddForce(floorProjected * m_force);
-        }
-        if (OVRInput.Get(OVRInput.Button.SecondaryIndexTrigger))
-        {
-            Debug.Log("moving");
-            Vector3 floorProjected = m_movementDirection.transform.forward;
-            floorProjected.y = 0;
-            floorProjected.Normalize();
-            m_rigidBody.AddForce(- floorProjected * m_force);
-        }
-        */
         Vector3 trueFordward = m_movementDirection.transform.forward;
         Vector3 trueRight = m_movementDirection.transform.right;
         trueFordward.y = 0;
@@ -49,14 +31,5 @@ public class VRCharacterControl : MonoBehaviour {
         trueUp.Normalize();
         Quaternion rot = Quaternion.Euler(transform.rotation.eulerAngles + trueUp * m_force * secondaryAxix.x / 3.0f);
         m_rigidBody.MoveRotation(rot);
-        //Debug.Log(trueUp * m_force * secondaryAxix.x);
-        if (OVRInput.Get(OVRInput.Touch.PrimaryThumbRest))
-        {
-            
-        }
-        if (OVRInput.Get(OVRInput.Touch.SecondaryThumbRest))
-        {
-            
-        }
     }
 }

@@ -45,7 +45,8 @@ public class Grabber : MonoBehaviour
             grabbed.transform.rotation = transform.rotation * grabbedRotationOffset;
             speed = (grabbed.transform.position - position0) / dt;
             position0 = grabbed.transform.position;
-            if (OVRInput.GetUp(interacter.BHandTrigger) || Input.GetMouseButtonUp(0))
+            
+            if (OVRInput.GetUp(OVRInput.Button.PrimaryHandTrigger, interacter.Controller))
             {
                 Ungrab();
             }
@@ -106,4 +107,5 @@ public class Grabber : MonoBehaviour
     }
 
     public GameObject GetGrabbedObject() => grabbed;
+    //public Interacter GetInteracter() => interacter;
 }

@@ -334,6 +334,16 @@ PrefabInstance:
       propertyPath: thPointer
       value: 0.45
       objectReference: {fileID: 0}
+    - target: {fileID: 2485176375398659975, guid: f3687a38c1f0ccb4fb7b036b84cdcf03,
+        type: 3}
+      propertyPath: controller
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8356151360688948792, guid: f3687a38c1f0ccb4fb7b036b84cdcf03,
+        type: 3}
+      propertyPath: m_UseWorldSpace
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f3687a38c1f0ccb4fb7b036b84cdcf03, type: 3}
 --- !u!1001 &3281417627561620292
@@ -416,7 +426,7 @@ PrefabInstance:
     - target: {fileID: 2485176375398659975, guid: f3687a38c1f0ccb4fb7b036b84cdcf03,
         type: 3}
       propertyPath: controller
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2485176375398659975, guid: f3687a38c1f0ccb4fb7b036b84cdcf03,
         type: 3}
@@ -427,6 +437,11 @@ PrefabInstance:
         type: 3}
       propertyPath: thPointer
       value: 0.45
+      objectReference: {fileID: 0}
+    - target: {fileID: 8356151360688948792, guid: f3687a38c1f0ccb4fb7b036b84cdcf03,
+        type: 3}
+      propertyPath: m_UseWorldSpace
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f3687a38c1f0ccb4fb7b036b84cdcf03, type: 3}

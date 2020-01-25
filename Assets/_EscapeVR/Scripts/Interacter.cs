@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class Interacter : MonoBehaviour
 {
-    enum Controller { Left, Right };
+    //enum Controller { Left, Right };
+    [SerializeField]
+    private OVRInput.Controller controller = OVRInput.Controller.LTouch;
     public enum Mode { Close, Far };
 
     [SerializeField]
@@ -12,21 +14,15 @@ public class Interacter : MonoBehaviour
     [SerializeField]
     private float thPointer = 0.5f;
     [SerializeField]
-    private Controller controller = Controller.Left;
-    [SerializeField]
     private float laserRadius = 0.1f;
     private Mode interactMode = Mode.Close;
     private LineRenderer lr;
     private Grabber grabber;
-    private bool bFirstHeldClicked = false;
-    private bool bFirstPointerClicked = false;
-    private OVRInput.Button bHandTrigger, bIndexTrigger;
+    public bool bFirstHeldClicked { get; private set; } = false;
+    public bool bFirstPointerClicked { get; private set; } = false;
     private Dictionary<int, Interactable> closeObjects;
-
-    // Botones segun si es el control derecho o izquierdo
-    public OVRInput.Button BHandTrigger => bHandTrigger;
-    public OVRInput.Button BIndexTrigger => bIndexTrigger;
     public Grabber GetGrabber() => grabber;
+    public OVRInput.Controller Controller => controller;
     public Mode InteractMode => interactMode;
 
 
@@ -36,7 +32,6 @@ public class Interacter : MonoBehaviour
         lr = GetComponent<LineRenderer>();
         grabber = GetComponent<Grabber>();
         lr.enabled = false;
-        SetButtons();
     }
 
 
@@ -44,9 +39,9 @@ public class Interacter : MonoBehaviour
     {
         // Solo podemos hace opciones de apuntar y coger si no hay nada agarrado,
         // en caso contrario el control lo tiene el Grabber
-        if(grabber.GetGrabbedObject() == null)
+        UpdateClicks();
+        if (grabber.GetGrabbedObject() == null)
         {
-            UpdateClicks();
             // Si distancia con head > th, laser
             if ((headPosition.position - transform.position).sqrMagnitude >= thPointer)
             {
@@ -173,12 +168,12 @@ public class Interacter : MonoBehaviour
     {
         bFirstHeldClicked = false;
         bFirstPointerClicked = false;
-
-        if (OVRInput.GetDown(BHandTrigger) || Input.GetMouseButtonDown(0))
+        
+        if (OVRInput.GetDown(OVRInput.Button.PrimaryHandTrigger, controller))
         {
             bFirstHeldClicked = true;
         }
-        if (OVRInput.GetDown(BIndexTrigger) || Input.GetMouseButtonDown(0))
+        if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger, controller))
         {
             bFirstPointerClicked = true;
         }
@@ -196,21 +191,5 @@ public class Interacter : MonoBehaviour
     public void TurnOffLaser()
     {
         lr.enabled = false;
-    }
-
-
-    // Inicializar los botones usados dependiendo del mando
-    private void SetButtons()
-    {
-        if(controller == Controller.Left)
-        {
-            bHandTrigger = OVRInput.Button.PrimaryHandTrigger;
-            bIndexTrigger = OVRInput.Button.PrimaryIndexTrigger;
-        }
-        else if(controller == Controller.Right)
-        {
-            bHandTrigger = OVRInput.Button.SecondaryHandTrigger;
-            bIndexTrigger = OVRInput.Button.SecondaryIndexTrigger;
-        }
     }
 }

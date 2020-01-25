@@ -7,8 +7,9 @@ public class GrabableObj : MonoBehaviour
     Grabber hand;
     Interactable interactable;
     private int originalLayer;
-    [HideInInspector]
     public bool CanBeGrabbed = true;
+    public bool IsDistanceGrabbable = true;
+    public bool DG { get; private set; }
 
     public int OriginalLayer => originalLayer;
     
@@ -17,6 +18,7 @@ public class GrabableObj : MonoBehaviour
     {
         interactable = GetComponent<Interactable>();
         originalLayer = gameObject.layer;
+        DG = IsDistanceGrabbable;
     }
 
 
@@ -26,6 +28,8 @@ public class GrabableObj : MonoBehaviour
     {
         if (CanBeGrabbed)
         {
+            // Si no puede ser agarrado a corta distancia
+            if (interactable.GetInteracter().InteractMode == Interacter.Mode.Far && !IsDistanceGrabbable) return;
             // Si ya lo tenemos cogido con la otra mano, lo "robamos" a la fuerza
             if (hand != null) hand.Ungrab(forceUngrab: true);
             hand = interactable.GetInteracter().GetGrabber();

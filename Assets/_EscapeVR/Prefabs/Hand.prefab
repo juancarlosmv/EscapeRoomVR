@@ -245,9 +245,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abaacd1a502931a47a3496df4ea6b7f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  controller: 1
   headPosition: {fileID: 0}
   thPointer: 0.4
-  controller: 0
   laserRadius: 0.02
 --- !u!114 &6390296558968917292
 MonoBehaviour:

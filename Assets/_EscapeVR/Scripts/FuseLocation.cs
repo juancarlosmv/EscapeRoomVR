@@ -20,7 +20,8 @@ public class FuseLocation : MonoBehaviour
             {
                 isMoving = false;
                 // Al llegar a su destino se puede agarrar de nuevo
-                fuse.gameObject.GetComponent<GrabableObj>().CanBeGrabbed = true;
+                GrabableObj gro = fuse.gameObject.GetComponent<GrabableObj>();
+                gro.CanBeGrabbed = true;
             }
                 
             GameObject go = fuse.gameObject;
@@ -39,7 +40,9 @@ public class FuseLocation : MonoBehaviour
             {
                 isMoving = true;
                 t = 0.0f;
-                fuse.gameObject.GetComponent<GrabableObj>().CanBeGrabbed = false;
+                GrabableObj gro = fuse.gameObject.GetComponent<GrabableObj>();
+                gro.CanBeGrabbed = false;
+                gro.IsDistanceGrabbable = false;
                 fuse.gameObject.GetComponent<Rigidbody>().isKinematic = true;
             }
         }
@@ -71,7 +74,9 @@ public class FuseLocation : MonoBehaviour
             // Desactivar rigidbody (recordar que el ungrab lo activa)
             fuse.gameObject.GetComponent<Rigidbody>().isKinematic = true;
             // Impedir que pueda ser agarrado de nuevo
-            fuse.gameObject.GetComponent<GrabableObj>().CanBeGrabbed = false;
+            GrabableObj gro = fuse.gameObject.GetComponent<GrabableObj>();
+            gro.CanBeGrabbed = false;
+            gro.IsDistanceGrabbable = false;
         }
     }
 
@@ -80,9 +85,11 @@ public class FuseLocation : MonoBehaviour
         // Ver si el que ha salido es el fusible que tiene
         if(fuse != null && other.gameObject.GetInstanceID() == fuse.gameObject.GetInstanceID())
         {
+            GrabableObj gro = fuse.gameObject.GetComponent<GrabableObj>();
             // Activar rigidbody solo si no se esta cogiendo
-            if(fuse.GetComponent<GrabableObj>().GetGrabber() == null)
+            if(gro.GetGrabber() == null)
                 fuse.gameObject.GetComponent<Rigidbody>().isKinematic = false;
+            gro.IsDistanceGrabbable = gro.DG;
             fuse = null;
         }
     }
