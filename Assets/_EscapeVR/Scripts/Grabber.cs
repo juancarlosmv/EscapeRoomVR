@@ -28,13 +28,13 @@ public class Grabber : MonoBehaviour
             float dt = Time.deltaTime;
             t += dt;
             t = Mathf.Min(t, 1.0f);
-            // TODO seguir con Lerp para close grab pero cambiar la posicion final segun offset
-            // Tener en cuenta la rotacion y empezar directamente con t a 1 (mejor sin Lerp)
+            // Si cogemos de lejos, atraemos con Lerp
             if(interacter.InteractMode == Interacter.Mode.Far)
             {
                 grabbed.transform.position = Vector3.Lerp(grabbed.transform.position,
                 transform.position, t);
             }
+            // Si cogemos de cerca, mantenemos la posicion relativa
             else if(interacter.InteractMode == Interacter.Mode.Close)
             {
                 grabbed.transform.position = transform.position;
@@ -42,6 +42,7 @@ public class Grabber : MonoBehaviour
                 Vector3 rotatedPositionOffset = rot * grabbedPositionOffset;
                 grabbed.transform.position = transform.position + rotatedPositionOffset;
             }
+            // Mantenemos la rotacion relativa y calculamos la velocidad
             grabbed.transform.rotation = transform.rotation * grabbedRotationOffset;
             speed = (grabbed.transform.position - position0) / dt;
             position0 = grabbed.transform.position;

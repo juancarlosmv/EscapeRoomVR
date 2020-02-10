@@ -2,18 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// TODO add rotation physics
 public class VRCharacterControl : MonoBehaviour {
     public float m_force;
     public Transform m_movementDirection;
     Rigidbody m_rigidBody;
 
-	// Use this for initialization
+
 	void Start () {
         m_rigidBody = GetComponent<Rigidbody>();
     }
 	
-	// Update is called once per frame
-	void Update () {
+
+    // TODO add fixeddelta time
+	void FixedUpdate () {
         Vector2 primaryAxix = OVRInput.Get(OVRInput.Axis2D.PrimaryThumbstick);
         Vector2 secondaryAxix = OVRInput.Get(OVRInput.Axis2D.SecondaryThumbstick);
         Vector3 trueFordward = m_movementDirection.transform.forward;
