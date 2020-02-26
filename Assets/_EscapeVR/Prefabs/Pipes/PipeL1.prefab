@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4873949977386503416}
   - component: {fileID: 2069489868128741024}
   - component: {fileID: 7319460026967539920}
+  - component: {fileID: 4229365621143534852}
   - component: {fileID: 194944075762648329}
   - component: {fileID: 2682207732506176172}
   - component: {fileID: 5977614626413332842}
@@ -83,6 +84,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CanBeGrabbed: 1
   IsDistanceGrabbable: 1
+--- !u!114 &4229365621143534852
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 471217481992537734}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7fedf41ce3a319b40ab547a09c11bfa9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  positions:
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 1, z: 0}
+  - {x: 0, y: 2, z: 0}
+  - {x: 1, y: 2, z: 0}
+  exits:
+  - {x: 0, y: -1, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 1, y: 0, z: 0}
 --- !u!54 &194944075762648329
 Rigidbody:
   m_ObjectHideFlags: 0
