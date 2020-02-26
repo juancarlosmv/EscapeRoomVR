@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// Unused
 public class GridTexture : MonoBehaviour
 {
     Texture3D texture;

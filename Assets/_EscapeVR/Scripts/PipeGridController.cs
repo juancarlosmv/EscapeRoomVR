@@ -33,10 +33,11 @@ public class PipeGridController : MonoBehaviour
         pipeState = new Dictionary<short, GrabState>();
     }
 
-    // Update is called once per frame
+
     void Update()
     {
-        // TODO kinematic changes
+        List<short> toRemove = new List<short>();
+
         // loop over pipes inside
         foreach(KeyValuePair<short, PipeController> kv in insidePipes)
         {
@@ -63,17 +64,23 @@ public class PipeGridController : MonoBehaviour
                     foreach (Vector3Int v in newCells) occupiedCells[v.x, v.y, v.z] = kv.Key;
                     // move from insidePipes to attachedPipes with the pipe id
                     attachedPipes[kv.Key] = insidePipes[kv.Key];
-                    insidePipes.Remove(kv.Key);
+                    toRemove.Add(kv.Key); // do not delete immediatly because we are inside a loop
+                    // initialize new lists
+                    attachedPositions[kv.Key] = new List<Vector3Int>();
+                    attachedExits[kv.Key] = new List<Vector3Int>();
                     // add the new occupied positions to attachedPositions with the pipe id
                     foreach (Vector3Int v in newCells) attachedPositions[kv.Key].Add(v);
                     // add the exits to attached exists with the pipe id
                     foreach (Vector3Int v in newExits) attachedExits[kv.Key].Add(v);
-                    // set distance grab to false
+                    // set distance grab and kinematic to false
                     gro.IsDistanceGrabbable = false;
+                    gro.gameObject.GetComponent<Rigidbody>().isKinematic = true;
                     // TODO CHECK IF FULL PATH OK
                 }
             }
         }
+        foreach(short s in toRemove) insidePipes.Remove(s);
+        toRemove.Clear();
 
         // loop over pipes attached
         foreach (KeyValuePair<short, PipeController> kv in attachedPipes)
@@ -92,7 +99,7 @@ public class PipeGridController : MonoBehaviour
                 foreach (Vector3Int v in attachedPositions[kv.Key]) occupiedCells[v.x, v.y, v.z] = -1;
                 // move from attachedPipes to insidePipes
                 insidePipes[kv.Key] = attachedPipes[kv.Key];
-                attachedPipes.Remove(kv.Key);
+                toRemove.Add(kv.Key); // do not delete immediatly because we are inside a loop
                 // delete from attachedPositions
                 attachedPositions.Remove(kv.Key);
                 // delete from attachedExits
@@ -102,9 +109,10 @@ public class PipeGridController : MonoBehaviour
                 // TODO CHECK IF FULL PATH BREAK
             }
         }
+        foreach (short s in toRemove) attachedPipes.Remove(s);
     }
 
-    void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
         PipeController pc = other.gameObject.GetComponent<PipeController>();
         if(pc != null)
@@ -116,7 +124,7 @@ public class PipeGridController : MonoBehaviour
         }
     }
 
-    void OnTriggerExit(Collider other)
+    private void OnTriggerExit(Collider other)
     {
         PipeController pc = other.gameObject.GetComponent<PipeController>();
         if (pc != null)
@@ -130,31 +138,29 @@ public class PipeGridController : MonoBehaviour
     {
         // relative distance vector to grid (0,0,0) point in world space
         Vector3 position = initialPosition - transform.position;
-        // rotate ditance vector obtain it in grid space
-        position = transform.rotation * position;
+        // rotate distance vector obtain it in grid space
+        position = Quaternion.Inverse(transform.rotation) * position;
         // align to grid cell centers in grid space
         position.x = ToGridPositionF(position.x);
         position.y = ToGridPositionF(position.y);
         position.z = ToGridPositionF(position.z);
         // inverse transform to get world space again
-        position = Quaternion.Inverse(transform.rotation) * position;
+        position = transform.rotation * position;
+        position = position + transform.position;
         return position;
     }
 
     Quaternion GetTargetRotation(Quaternion initialRotation)
     {
         // en grados
-        Vector3 eulerGrid = transform.rotation.eulerAngles;
-        Vector3 eulerObject = initialRotation.eulerAngles;
-        // relative euler rotation
-        eulerObject = eulerObject - eulerGrid;
+        Vector3 eulerObject = (Quaternion.Inverse(transform.rotation) * initialRotation).eulerAngles;
         // transform the relative rotation into multiples of 90
         eulerObject.x = ToGridRotationF(eulerObject.x);
         eulerObject.y = ToGridRotationF(eulerObject.y);
         eulerObject.z = ToGridRotationF(eulerObject.z);
-        // add the euler grid transform to return to world space
-        eulerObject = eulerObject + eulerGrid;
-        return Quaternion.Euler(eulerObject);
+        // return to world space
+        Quaternion targetRotation = transform.rotation * Quaternion.Euler(eulerObject);
+        return targetRotation;
     }
 
     List<Vector3Int> GetNewCells(Vector3 destinyP, Quaternion destinyR, List<Vector3Int> positions)
@@ -163,13 +169,13 @@ public class PipeGridController : MonoBehaviour
         List<Vector3Int> newCells = new List<Vector3Int>();
         // convertir cada posicion con la rotacion
         // sumar cada posicion convertida a la posicion de destino
-        foreach (Vector3Int position in positions) floatPositions.Add(destinyR * position + destinyP);
+        foreach (Vector3Int position in positions) floatPositions.Add((destinyR * position) * cellSize + destinyP);
         // create cell indices
-        for(int i=0; i< floatPositions.Count; i++)
+        for (int i=0; i< floatPositions.Count; i++)
         {
             // transform world space positions to grid space positions
             floatPositions[i] = floatPositions[i] - transform.position;
-            floatPositions[i] = transform.rotation * floatPositions[i];
+            floatPositions[i] = Quaternion.Inverse(transform.rotation) * floatPositions[i];
             // convert float positions in integer positions using the cell size
             newCells.Add(new Vector3Int(
                 ToGridPositionI(floatPositions[i].x),
