@@ -21,8 +21,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_EscapeVR/_Scenes/Taller/Taller.unity
     guid: 435bbe6f36a9462418e354e6a325a538
+=======
+>>>>>>> Stashed changes
   - enabled: 0
     path: Assets/_EscapeVR/_Scenes/TestMechanics.unity
     guid: 73d570ff125a7804bacd97f665ff29b1
   - enabled: 1
+    path: Assets/_EscapeVR/_Scenes/SalaCentral.unity
+    guid: 855601088aa8b1f4584fee6288740f4d
   m_configObjects: {}

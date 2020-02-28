@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   array:
   - {fileID: 2100000, guid: c22777d6e868e4f2fb421913386b154e, type: 2}
+<<<<<<< Updated upstream
   - {fileID: -9023919163596458144, guid: 6ec88a844fd3da84096c841bbd6f4443, type: 3}
   - {fileID: -1677498603491510716, guid: 1bcb69884bdb7894b99abe33070886bc, type: 3}
   - {fileID: -3264370772400777557, guid: 58eda063f8a7deb45b83f103847e1934, type: 3}
@@ -26,6 +27,9 @@ MonoBehaviour:
   - {fileID: -4896281871662101129, guid: 2902aa5bd8479964191414c62de088f5, type: 3}
   - {fileID: -7273182767955655092, guid: 95f0138016c1ef94f99784d8f9be6a04, type: 3}
   - {fileID: -6096698871291178003, guid: f6fd2f4c94f163c419f4c0bf44d7b5f8, type: 3}
+=======
+  - {fileID: 2100000, guid: fb57f1f255a288c45ab71c4b17ed2573, type: 2}
+  - {fileID: 2100000, guid: 51a0d32d621de72459e44985c1ea4287, type: 2}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
@@ -33,3 +37,4 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+>>>>>>> Stashed changes
