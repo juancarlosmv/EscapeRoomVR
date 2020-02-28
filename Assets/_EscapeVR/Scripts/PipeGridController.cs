@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum EndpointColor { Red, Blue };
+public enum EndpointColor { Red, Green, Blue, Yellow, Cyan, Purple};
 
 [System.Serializable]
 public struct Endpoint

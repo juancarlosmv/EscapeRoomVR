@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -20,7 +21,7 @@ public class Interacter : MonoBehaviour
     private Grabber grabber;
     public bool bFirstHeldClicked { get; private set; } = false;
     public bool bFirstPointerClicked { get; private set; } = false;
-    private Dictionary<int, Interactable> closeObjects;
+    private Dictionary<int, Tuple<Interactable, int>> closeObjects;
     public Grabber GetGrabber() => grabber;
     public OVRInput.Controller Controller => controller;
     public Mode InteractMode => interactMode;
@@ -28,7 +29,7 @@ public class Interacter : MonoBehaviour
 
     void Start()
     {
-        closeObjects = new Dictionary<int, Interactable>();
+        closeObjects = new Dictionary<int, Tuple<Interactable, int>>();
         lr = GetComponent<LineRenderer>();
         grabber = GetComponent<Grabber>();
         lr.enabled = false;
@@ -64,8 +65,10 @@ public class Interacter : MonoBehaviour
         Interactable interactableObject = other.gameObject.GetComponent<Interactable>();
         if(interactableObject != null)
         {
-            closeObjects[interactableObject.GetInstanceID()] = interactableObject;
-            //Debug.Log(other.gameObject);
+            if (closeObjects.ContainsKey(interactableObject.GetInstanceID()))
+                closeObjects[interactableObject.GetInstanceID()] = new Tuple<Interactable, int>(interactableObject, closeObjects[interactableObject.GetInstanceID()].Item2 + 1);
+            else
+                closeObjects[interactableObject.GetInstanceID()] = new Tuple<Interactable, int>(interactableObject, 1);
         }
     }
 
@@ -76,7 +79,11 @@ public class Interacter : MonoBehaviour
         Interactable interactableObject = other.gameObject.GetComponent<Interactable>();
         if (interactableObject != null)
         {
-            closeObjects.Remove(interactableObject.GetInstanceID());
+            int instances = closeObjects[interactableObject.GetInstanceID()].Item2;
+            if (instances == 1)
+                closeObjects.Remove(interactableObject.GetInstanceID());
+            else
+                closeObjects[interactableObject.GetInstanceID()] = new Tuple<Interactable, int>(interactableObject, closeObjects[interactableObject.GetInstanceID()].Item2 - 1);
         }
     }
 
@@ -150,13 +157,13 @@ public class Interacter : MonoBehaviour
     {
         float distance = 100000.0f;
         Interactable closest = null;
-        foreach(KeyValuePair<int, Interactable> value in closeObjects)
+        foreach(KeyValuePair<int, Tuple<Interactable, int>> value in closeObjects)
         {
-            float daux = (transform.position - value.Value.gameObject.transform.position).magnitude;
+            float daux = (transform.position - value.Value.Item1.gameObject.transform.position).magnitude;
             if(daux < distance)
             {
                 distance = daux;
-                closest = value.Value;
+                closest = value.Value.Item1;
             }
         }
         return closest;
