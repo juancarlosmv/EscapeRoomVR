@@ -2,6 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum EndpointColor { Red, Blue };
+
+[System.Serializable]
+public struct Endpoint
+{
+    public Vector3Int cell;
+    public Vector3Int direction;
+    public EndpointColor color;
+    public bool active;
+};
+
 public class PipeGridController : MonoBehaviour
 {
     enum GrabState : short { Grab, Ungrab, Grab2Ungrab, Ungrab2Grab };
@@ -9,6 +20,10 @@ public class PipeGridController : MonoBehaviour
     Vector3Int dimensions;
     [SerializeField]
     float cellSize = 0.2f;
+    [SerializeField]
+    Endpoint[] entradas;
+    [SerializeField]
+    Endpoint[] salidas;
     short[,,] occupiedCells;
     Dictionary<short, GrabState> pipeState;
     Dictionary<short, PipeController> insidePipes; // inside, but not attached
@@ -53,8 +68,8 @@ public class PipeGridController : MonoBehaviour
                 Vector3 destinyP = GetTargetPosition(kv.Value.gameObject.transform.position);
                 Quaternion destinyR = GetTargetRotation(kv.Value.gameObject.transform.rotation);
                 // compute new occupied cells
-                List<Vector3Int> newCells = GetNewCells(destinyP, destinyR, kv.Value.Positions);
-                List<Vector3Int> newExits = GetNewCells(destinyP, destinyR, kv.Value.Exits);
+                List<Vector3Int> newCells = GetNewCells(destinyP, destinyR, kv.Value.Positions, true);
+                List<Vector3Int> newExits = GetNewCells(destinyP, destinyR, kv.Value.Exits, false);
                 // if can fit
                 if (CanFit(newCells))
                 {
@@ -75,7 +90,8 @@ public class PipeGridController : MonoBehaviour
                     // set distance grab and kinematic to false
                     gro.IsDistanceGrabbable = false;
                     gro.gameObject.GetComponent<Rigidbody>().isKinematic = true;
-                    // TODO CHECK IF FULL PATH OK
+                    // Recompute correct paths
+                    Refresh();
                 }
             }
         }
@@ -106,7 +122,8 @@ public class PipeGridController : MonoBehaviour
                 attachedExits.Remove(kv.Key);
                 // Reset distance grabbable to original value
                 gro.IsDistanceGrabbable = gro.DG;
-                // TODO CHECK IF FULL PATH BREAK
+                // Recompute correct paths
+                Refresh();
             }
         }
         foreach (short s in toRemove) attachedPipes.Remove(s);
@@ -163,18 +180,22 @@ public class PipeGridController : MonoBehaviour
         return targetRotation;
     }
 
-    List<Vector3Int> GetNewCells(Vector3 destinyP, Quaternion destinyR, List<Vector3Int> positions)
+    List<Vector3Int> GetNewCells(Vector3 destinyP, Quaternion destinyR, List<Vector3Int> positions, bool isPoint)
     {
         List<Vector3> floatPositions = new List<Vector3>();
         List<Vector3Int> newCells = new List<Vector3Int>();
         // convertir cada posicion con la rotacion
         // sumar cada posicion convertida a la posicion de destino
-        foreach (Vector3Int position in positions) floatPositions.Add((destinyR * position) * cellSize + destinyP);
+        foreach (Vector3Int position in positions)
+        {
+            floatPositions.Add((destinyR * position) * cellSize);
+            if (isPoint) floatPositions[floatPositions.Count - 1] += destinyP;
+        }
         // create cell indices
         for (int i=0; i< floatPositions.Count; i++)
         {
             // transform world space positions to grid space positions
-            floatPositions[i] = floatPositions[i] - transform.position;
+            if (isPoint) floatPositions[i] = floatPositions[i] - transform.position;
             floatPositions[i] = Quaternion.Inverse(transform.rotation) * floatPositions[i];
             // convert float positions in integer positions using the cell size
             newCells.Add(new Vector3Int(
@@ -238,5 +259,79 @@ public class PipeGridController : MonoBehaviour
             if (!InsideGrid(v) || CellFull(v)) return false;
         }
         return true;
+    }
+
+    void Refresh()
+    {
+        for(int i=0; i<salidas.Length; i++)
+        {
+            salidas[i].active = false;
+        }
+        for (int i = 0; i < entradas.Length; i++)
+        {
+            HashSet<short> visited = new HashSet<short>();
+            DFS(entradas[i].cell - entradas[i].direction, entradas[i].direction, entradas[i].color, ref visited);
+        }
+    }
+
+    void DFS(Vector3Int cell, Vector3Int direction, EndpointColor color, ref HashSet<short> visited)
+    {
+        // If the dfs is in an exit cell
+        for (int i = 0; i < salidas.Length; i++)
+        {
+            if (EqualVecI(salidas[i].cell, cell) && Dot(direction, salidas[i].direction) < -0.1f && salidas[i].color == color)
+            {
+                salidas[i].active = true;
+                return;
+            }
+        }
+
+        cell = cell + direction;
+        if (!InsideGrid(cell)) return;
+        short id = occupiedCells[cell.x, cell.y, cell.z];
+        // No pipe here
+        if (id == -1) return;
+        // Pipe already visited
+        if (visited.Contains(id)) return;
+        int ind = GetCellInd(cell, id);
+        // If this pipe does not match with the direction passed
+        if (Dot(direction, attachedExits[id][ind]) > -0.1f) return;
+        
+        visited.Add(id);
+        // If the dfs is in a new pipe
+        for (int i=0; i<attachedPositions[id].Count; i++)
+        {
+            Vector3Int dir = attachedExits[id][i];
+            if(Dot(dir, dir) > 0.1f)
+            {
+                Vector3Int pos = attachedPositions[id][i];
+                DFS(pos, dir, color, ref visited);
+            }
+        }
+    }
+
+    bool EqualVecI(Vector3Int v1, Vector3Int v2)
+    {
+        return v1.x == v2.x && v1.y == v2.y && v1.z == v2.z;
+    }
+
+    float Dot(Vector3Int v1, Vector3Int v2)
+    {
+        return (float)(v1.x * v2.x + v1.y * v2.y + v1.z * v2.z);
+    }
+
+    int GetCellInd(Vector3Int cell, short id)
+    {
+        for(int i=0; i<attachedPositions[id].Count; i++)
+        {
+            if (EqualVecI(cell, attachedPositions[id][i])) return i;
+        }
+        return -1;
+    }
+
+    public bool PathOk(int ind)
+    {
+        if (ind >= salidas.Length) return false;
+        return salidas[ind].active;
     }
 }

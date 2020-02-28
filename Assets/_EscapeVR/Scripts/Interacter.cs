@@ -65,7 +65,7 @@ public class Interacter : MonoBehaviour
         if(interactableObject != null)
         {
             closeObjects[interactableObject.GetInstanceID()] = interactableObject;
-            Debug.Log(other.gameObject);
+            //Debug.Log(other.gameObject);
         }
     }
 
