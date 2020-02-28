@@ -16,7 +16,7 @@
             LOD 200
             Blend SrcAlpha OneMinusSrcAlpha
             ZWrite Off
-            Cull Off
+            Cull off
             Pass
             {
                 CGPROGRAM
@@ -70,7 +70,7 @@
                     {
                         mainColor.a = 0.1;
                     }
-                    //if (o.texcoord.y < 0.5) { mainColor.a = 1.0; mainColor.r = 0.0; }
+                    //if (o.texcoord.x < 0.75 && o.texcoord.x > 0.25 && o.texcoord.y < 0.75 && o.texcoord.y > 0.25) { mainColor.a = 1.0; mainColor.r = 0.0; }
                     return mainColor;
                 }
                 ENDCG
