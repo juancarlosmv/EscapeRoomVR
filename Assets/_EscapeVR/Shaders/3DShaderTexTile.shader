@@ -1,4 +1,4 @@
-﻿Shader "Unlit/3DShaderTex"
+﻿Shader "Unlit/3DShaderTexTile"
 {
     Properties
     {
@@ -20,6 +20,7 @@
             #pragma target 3.0
 
             sampler2D _MainTex;
+            float4 _MainTex_ST;
 
             struct vertInput
             {
@@ -30,14 +31,14 @@
             struct vertOutput
             {
                 float4 pos : SV_POSITION;
-                float4 texcoord : TEXCOORD0;
+                float2 texcoord : TEXCOORD0;
             };
 
             vertOutput vert(vertInput input)
             {
                 vertOutput o;
                 o.pos = UnityObjectToClipPos(input.pos);
-                o.texcoord = input.texcoord;
+                o.texcoord = TRANSFORM_TEX(input.texcoord, _MainTex);
                 return o;
             }
 
