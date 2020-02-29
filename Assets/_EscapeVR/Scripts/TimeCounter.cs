@@ -5,13 +5,10 @@ using UnityEngine.UI;
 
 public class TimeCounter : MonoBehaviour {
 
-    GameplayManager _gameManager;
-
     Text _counterText;
 
     void Awake()
     {
-        _gameManager = FindObjectOfType<GameplayManager>();
         _counterText = GetComponent<Text>();
     }
 	void Start () {
@@ -21,7 +18,7 @@ public class TimeCounter : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        _counterText.text = _gameManager.GetGameTimeString(); ;
-       
-	}
+        if (!GameManager.GetInstance().bEndGame) _counterText.text = GameManager.GetInstance().GetGameTimeString();
+        else _counterText.text = GameManager.GetInstance().SetEndText(GameManager.GetInstance().bEndGame);
+    }
 }

@@ -6,6 +6,8 @@ using UnityEngine.SceneManagement;
 public class VRButtonContact : MonoBehaviour
 {
     [SerializeField]
+    bool NavigationPanel;
+    [SerializeField]
     private char code;
     [SerializeField]
     private GameObject pushButton;
@@ -28,7 +30,12 @@ public class VRButtonContact : MonoBehaviour
         else 
         {
             GameManager.GetInstance().Difficulty = code;
+            GameManager.GetInstance().SetDifficultyTimming();
             GameManager.GetInstance().LoadScene("SalaCentral",2);
+        }
+        if (NavigationPanel) 
+        {
+            GameplayManager.GetInstance().NextScene();
         }
         _as.Play();
     }

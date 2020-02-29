@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 
 public class GameplayManager : MonoBehaviour
@@ -9,31 +11,59 @@ public class GameplayManager : MonoBehaviour
     private static GameplayManager _instance;
     public static GameplayManager GetInstance() { return _instance; }
     #endregion
-    [SerializeField] float _gameDuration = 60;
-    float _gameTiming;
 
-    void Start()
+    [SerializeField] GameObject _game;
+    [SerializeField] GameObject _navigationPanel;
+    [SerializeField] Text _instructions;
+    AudioSource _as;
+    
+    void Awake() 
     {
-        //if (InstructionsReaded)
-        _gameTiming = Time.realtimeSinceStartup;
         if (_instance == null)
             _instance = this;
+        _as = GetComponent<AudioSource>();
+    }
+    void Start()
+    {
+        if (SceneManager.GetActiveScene().name=="SalaCentral"){GameManager.GetInstance().InGame = true;}
     }
 
-    // Update is called once per frame
     void Update()
     {
-        _gameTiming += Time.deltaTime;
-        if (_gameTiming > _gameDuration)
+        switch (SceneManager.GetActiveScene().name)
         {
-            //GameOver(true);
-            Debug.Log("Se terminó");
+            case "SalaCentral":
+                GameManager.GetInstance().InGame = true;
+                if (_game.GetComponent<FuseBox>().IsCorrect()) 
+                {
+                    _navigationPanel.SetActive(true);
+                    _instructions.text = "Go to the Machine Room to active the flotation turbines before the submarine sinks";
+                    _as.Play();
+                }
+                break;
+            case "SalaMaquinas":
+                break;
+            case "SalaAlmacen":
+                break;
+            case "Taller":
+                break;
         }
     }
-    public string GetGameTimeString()
+    public void NextScene()
     {
-        int minutes = Mathf.FloorToInt(_gameTiming / 60);
-        int seconds = Mathf.FloorToInt(_gameTiming) % 60;
-        return string.Format("{0:00}:{1:00}", minutes, seconds);
+        string next="";
+        switch (SceneManager.GetActiveScene().name)
+        {
+          case "SalaCentral":
+              next = "SalaMaquinas";
+                break;
+            case "SalaMaquinas":
+                next = "Taller";
+                break;
+            case "Taller":
+                next = "Almacen";
+                break;
+        }
+        GameManager.GetInstance().LoadScene(next);
     }
 }

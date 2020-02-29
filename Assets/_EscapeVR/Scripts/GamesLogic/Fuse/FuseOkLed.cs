@@ -8,6 +8,12 @@ public class FuseOkLed : MonoBehaviour
     public Material ok;
     public Material notok;
     public FuseBox fuseBox;
+    AudioSource _as;
+
+    private void Awake() 
+    {
+        _as = GetComponent<AudioSource>();
+    }
 
     private void Start()
     {
@@ -20,7 +26,11 @@ public class FuseOkLed : MonoBehaviour
         if(onaux != on)
         {
             on = onaux;
-            if (on == true) GetComponent<MeshRenderer>().material = ok;
+            if (on == true) 
+            {
+                GetComponent<MeshRenderer>().material = ok;
+                if (_as != null) _as.Play();
+            }
             else GetComponent<MeshRenderer>().material = notok;
         }
     }
