@@ -15,13 +15,11 @@ public class GameplayManager : MonoBehaviour
     [SerializeField] GameObject _game;
     [SerializeField] GameObject _navigationPanel;
     [SerializeField] Text _instructions;
-    AudioSource _as;
     
     void Awake() 
     {
         if (_instance == null)
             _instance = this;
-        _as = GetComponent<AudioSource>();
     }
     void Start()
     {
@@ -38,15 +36,20 @@ public class GameplayManager : MonoBehaviour
                 {
                     _navigationPanel.SetActive(true);
                     _instructions.text = "Go to the Machine Room to active the flotation turbines before the submarine sinks";
-                    _as.Play();
                 }
                 break;
             case "SalaMaquinas":
-                break;
-            case "SalaAlmacen":
+                if (_game.GetComponent<VRKeypadController>().CorrectPassword)
+                {
+                    _navigationPanel.SetActive(true);
+                    _instructions.text = "Go to the Workshop to repair the oxigen leak before you can't breathe";
+                }
                 break;
             case "Taller":
                 break;
+            case "SalaAlmacen":
+                break;
+
         }
     }
     public void NextScene()

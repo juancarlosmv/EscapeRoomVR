@@ -15,6 +15,7 @@ public class VRKeypadController : VRButtonController
     [SerializeField]
     private KeyOkLed led;
 
+    public bool CorrectPassword = false;
     private void Start()
     {
         numDigits = (int)Mathf.Ceil(Mathf.Log10(pass));
@@ -71,6 +72,7 @@ public class VRKeypadController : VRButtonController
         if (ok) 
         {
             led.SetOk();
+            CorrectPassword = true;
         } 
         else led.SetError();
     }
