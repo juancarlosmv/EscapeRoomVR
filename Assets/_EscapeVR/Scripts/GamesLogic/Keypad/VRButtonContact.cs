@@ -29,7 +29,7 @@ public class VRButtonContact : MonoBehaviour
         }
         else 
         {
-            if (code == 0) GameManager.GetInstance().LoadScene("TestMechanics", 2);
+            if (code == 4) GameManager.GetInstance().LoadScene("TestMechanics", 2);
             else if (code == 9) GameManager.GetInstance().QuitGame();
             else
             {

@@ -49,6 +49,7 @@ public class GameManager : MonoBehaviour
     public void LoadScene(string scene, int delay=0) 
     {
         Scene= scene;
+        if (scene == "Menu") _gameTiming = 0;
         Delay=delay;
         StartCoroutine("ChangeScene");
     }
