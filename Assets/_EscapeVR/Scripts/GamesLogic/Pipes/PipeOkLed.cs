@@ -8,11 +8,13 @@ public class PipeOkLed : MonoBehaviour
     public Material ok;
     public Material notok;
     public PipeGridController gridController;
-    public int id;
+    int id=0;
 
+    AudioSource _as;
     // Start is called before the first frame update
     void Start()
     {
+        _as = GetComponent<AudioSource>();
         GetComponent<MeshRenderer>().material = notok;
     }
 
@@ -23,7 +25,11 @@ public class PipeOkLed : MonoBehaviour
         if (onaux != on)
         {
             on = onaux;
-            if (on == true) GetComponent<MeshRenderer>().material = ok;
+            if (on == true) 
+            {
+                GetComponent<MeshRenderer>().material = ok;
+                _as.Play();
+            }
             else GetComponent<MeshRenderer>().material = notok;
         }
     }

@@ -15,17 +15,18 @@ public class GameplayManager : MonoBehaviour
     [SerializeField] GameObject _game;
     [SerializeField] GameObject _navigationPanel;
     [SerializeField] Text _instructions;
+
+    AudioSource _as;
     
     void Awake() 
     {
-        if (_instance == null)
-            _instance = this;
+        if (_instance == null)_instance = this;
+        _as = GetComponent<AudioSource>();
     }
     void Start()
     {
         if (SceneManager.GetActiveScene().name=="SalaCentral"){GameManager.GetInstance().InGame = true;}
     }
-
     void Update()
     {
         switch (SceneManager.GetActiveScene().name)
@@ -36,6 +37,7 @@ public class GameplayManager : MonoBehaviour
                 {
                     _navigationPanel.SetActive(true);
                     _instructions.text = "Go to the Machine Room to active the flotation turbines before the submarine sinks";
+                    _as.Play();
                 }
                 break;
             case "SalaMaquinas":
@@ -43,15 +45,20 @@ public class GameplayManager : MonoBehaviour
                 {
                     _navigationPanel.SetActive(true);
                     _instructions.text = "Go to the Workshop to repair the oxigen leak before you can't breathe";
+                    _as.Play();
                 }
                 break;
             case "Taller":
+                if (_game.GetComponent<PipeGridController>().PathOk(0)) 
+                {
+                    _navigationPanel.SetActive(true);
+                    _instructions.text = "Go to the warehouse, there is your little submarine";
+                    _as.Play();
+                }
                 break;
-            case "SalaAlmacen":
-                break;
-
         }
     }
+
     public void NextScene()
     {
         string next="";

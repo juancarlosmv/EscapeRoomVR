@@ -13,11 +13,17 @@ EditorBuildSettings:
     guid: 7815b3d9f6766db42a793b99ea5b60db
   - enabled: 1
     path: Assets/_EscapeVR/_Scenes/SalaCentral/SalaCentral.unity
-    guid: 855601088aa8b1f4584fee6288740f4d
+    guid: e98402788e63aae4e980d1bf3460a78d
   - enabled: 1
-    path: Assets/_EscapeVR/_Scenes/SlaMaquinas/SalaMaquinas.unity
+    path: Assets/_EscapeVR/_Scenes/SalaMaquinas/SalaMaquinas.unity
     guid: baca5b0d901a6bb4db0378663d31dcdf
   - enabled: 1
     path: Assets/_EscapeVR/_Scenes/Taller/Taller.unity
     guid: 435bbe6f36a9462418e354e6a325a538
+  - enabled: 1
+    path: Assets/_EscapeVR/_Scenes/Almacen/Almacen.unity
+    guid: eeeb8ac54a9a5f241af880ef5c7579aa
+  - enabled: 1
+    path: Assets/_EscapeVR/_Scenes/TestMechanics.unity
+    guid: 73d570ff125a7804bacd97f665ff29b1
   m_configObjects: {}

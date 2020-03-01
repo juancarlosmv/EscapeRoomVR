@@ -29,14 +29,16 @@ public class VRButtonContact : MonoBehaviour
         }
         else 
         {
-            GameManager.GetInstance().Difficulty = code;
-            GameManager.GetInstance().SetDifficultyTimming();
-            GameManager.GetInstance().LoadScene("SalaCentral",2);
+            if (code == 0) GameManager.GetInstance().LoadScene("TestMechanics", 2);
+            else if (code == 9) GameManager.GetInstance().QuitGame();
+            else
+            {
+                GameManager.GetInstance().Difficulty = code;
+                GameManager.GetInstance().SetDifficultyTimming();
+                GameManager.GetInstance().LoadScene("SalaCentral", 2);
+            }
         }
-        if (NavigationPanel) 
-        {
-            GameplayManager.GetInstance().NextScene();
-        }
+        if (NavigationPanel)  GameplayManager.GetInstance().NextScene();
         _as.Play();
     }
 }

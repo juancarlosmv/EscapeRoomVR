@@ -33,6 +33,7 @@ Transform:
   m_Children:
   - {fileID: 4322423652638540207}
   - {fileID: 6293557070547638794}
+  - {fileID: 725595868040929734}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -435,6 +436,55 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 14
   m_Mesh: {fileID: 0}
+--- !u!1 &8901607746216586295
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 725595868040929734}
+  - component: {fileID: 4669998637143035006}
+  m_Layer: 0
+  m_Name: Light Probe Group
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &725595868040929734
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8901607746216586295}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.749, y: 0.607, z: -0.865}
+  m_LocalScale: {x: 0.30052, y: 0.30052, z: 0.30052}
+  m_Children: []
+  m_Father: {fileID: 4664293906292173906}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!220 &4669998637143035006
+LightProbeGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8901607746216586295}
+  m_Enabled: 1
+  m_SourcePositions:
+  - {x: 1, y: 1, z: 1}
+  - {x: 1, y: 1, z: -1}
+  - {x: 1, y: -1, z: 1}
+  - {x: 1, y: -1, z: -1}
+  - {x: -1, y: 1, z: 1}
+  - {x: -1, y: 1, z: -1}
+  - {x: -1, y: -1, z: 1}
+  - {x: -1, y: -1, z: -1}
+  m_Dering: 1
 --- !u!1001 &4029028190684684276
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -445,7 +495,7 @@ PrefabInstance:
     - target: {fileID: 870794121819709344, guid: d1e50c7a8c1099648b0260a31c23b45c,
         type: 3}
       propertyPath: m_Name
-      value: VRButton (2)
+      value: Scene
       objectReference: {fileID: 0}
     - target: {fileID: 870794121819709019, guid: d1e50c7a8c1099648b0260a31c23b45c,
         type: 3}
@@ -512,7 +562,7 @@ PrefabInstance:
       propertyPath: m_LocalScale.y
       value: 0.9246506
       objectReference: {fileID: 0}
-    - target: {fileID: 870794121819709023, guid: d1e50c7a8c1099648b0260a31c23b45c,
+    - target: {fileID: 870794121819709020, guid: d1e50c7a8c1099648b0260a31c23b45c,
         type: 3}
       propertyPath: m_Mesh
       value: 
@@ -523,17 +573,7 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 6557933470123460478, guid: 727aad689e5104e4795503fe38e34de9,
         type: 3}
-    - target: {fileID: 870794121819709020, guid: d1e50c7a8c1099648b0260a31c23b45c,
-        type: 3}
-      propertyPath: m_Mesh
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 870794121738065414, guid: d1e50c7a8c1099648b0260a31c23b45c,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 2b9514cee023b6c46ba9cc494a52dcf6, type: 2}
-    - target: {fileID: 870794121738065413, guid: d1e50c7a8c1099648b0260a31c23b45c,
+    - target: {fileID: 870794121819709023, guid: d1e50c7a8c1099648b0260a31c23b45c,
         type: 3}
       propertyPath: m_Mesh
       value: 
@@ -548,6 +588,16 @@ PrefabInstance:
       propertyPath: m_LocalScale.x
       value: 0.00030766
       objectReference: {fileID: 0}
+    - target: {fileID: 870794121738065413, guid: d1e50c7a8c1099648b0260a31c23b45c,
+        type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 870794121738065414, guid: d1e50c7a8c1099648b0260a31c23b45c,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 2b9514cee023b6c46ba9cc494a52dcf6, type: 2}
     - target: {fileID: 8132745947192302521, guid: d1e50c7a8c1099648b0260a31c23b45c,
         type: 3}
       propertyPath: m_Color.r
@@ -602,7 +652,7 @@ PrefabInstance:
     - target: {fileID: 870794121819709344, guid: d1e50c7a8c1099648b0260a31c23b45c,
         type: 3}
       propertyPath: m_Name
-      value: VRButton (4)
+      value: Quit
       objectReference: {fileID: 0}
     - target: {fileID: 870794121819709019, guid: d1e50c7a8c1099648b0260a31c23b45c,
         type: 3}
@@ -669,15 +719,10 @@ PrefabInstance:
       propertyPath: m_LocalScale.y
       value: 0.56091154
       objectReference: {fileID: 0}
-    - target: {fileID: 870794121819709023, guid: d1e50c7a8c1099648b0260a31c23b45c,
+    - target: {fileID: 870794121819709020, guid: d1e50c7a8c1099648b0260a31c23b45c,
         type: 3}
       propertyPath: m_Mesh
       value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 870794121819709022, guid: d1e50c7a8c1099648b0260a31c23b45c,
-        type: 3}
-      propertyPath: m_SelectedVertices.Array.size
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 870794121819709021, guid: d1e50c7a8c1099648b0260a31c23b45c,
         type: 3}
@@ -685,12 +730,12 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 6557933470123460478, guid: 727aad689e5104e4795503fe38e34de9,
         type: 3}
-    - target: {fileID: 870794121819709020, guid: d1e50c7a8c1099648b0260a31c23b45c,
+    - target: {fileID: 870794121819709022, guid: d1e50c7a8c1099648b0260a31c23b45c,
         type: 3}
-      propertyPath: m_Mesh
-      value: 
+      propertyPath: m_SelectedVertices.Array.size
+      value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 870794121738065413, guid: d1e50c7a8c1099648b0260a31c23b45c,
+    - target: {fileID: 870794121819709023, guid: d1e50c7a8c1099648b0260a31c23b45c,
         type: 3}
       propertyPath: m_Mesh
       value: 
@@ -704,6 +749,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.x
       value: 0.00082578073
+      objectReference: {fileID: 0}
+    - target: {fileID: 870794121738065413, guid: d1e50c7a8c1099648b0260a31c23b45c,
+        type: 3}
+      propertyPath: m_Mesh
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 8132745947192302521, guid: d1e50c7a8c1099648b0260a31c23b45c,
         type: 3}
