@@ -17,7 +17,7 @@ public class GameplayManager : MonoBehaviour
     [SerializeField] Text _instructions;
 
     AudioSource _as;
-    
+    bool once;
     void Awake() 
     {
         if (_instance == null)_instance = this;
@@ -25,6 +25,7 @@ public class GameplayManager : MonoBehaviour
     }
     void Start()
     {
+        once = false;
         if (SceneManager.GetActiveScene().name=="SalaCentral"){GameManager.GetInstance().InGame = true;}
     }
     void Update()
@@ -37,7 +38,11 @@ public class GameplayManager : MonoBehaviour
                 {
                     _navigationPanel.SetActive(true);
                     _instructions.text = "Go to the Machine Room to active the flotation turbines before the submarine sinks";
-                    _as.Play();
+                    if (!once)
+                    {
+                        _as.Play();
+                        once = true;
+                    }
                 }
                 break;
             case "SalaMaquinas":
@@ -45,7 +50,11 @@ public class GameplayManager : MonoBehaviour
                 {
                     _navigationPanel.SetActive(true);
                     _instructions.text = "Go to the Workshop to repair the oxigen leak before you can't breathe";
-                    _as.Play();
+                    if (!once)
+                    {
+                        _as.PlayOneShot(_as.clip);
+                        once = true;
+                    }
                 }
                 break;
             case "Taller":
@@ -53,7 +62,11 @@ public class GameplayManager : MonoBehaviour
                 {
                     _navigationPanel.SetActive(true);
                     _instructions.text = "Go to the warehouse, there is your little submarine";
-                    _as.Play();
+                    if (!once) 
+                    {
+                        _as.PlayOneShot(_as.clip);
+                        once = true;
+                    }
                 }
                 break;
         }
@@ -74,6 +87,6 @@ public class GameplayManager : MonoBehaviour
                 next = "Almacen";
                 break;
         }
-        GameManager.GetInstance().LoadScene(next);
+        GameManager.GetInstance().LoadScene(next,1);
     }
 }
