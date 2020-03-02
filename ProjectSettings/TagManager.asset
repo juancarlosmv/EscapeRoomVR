@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - Weight
+  - SuperMainCameraGuay
   layers:
   - Default
   - TransparentFX

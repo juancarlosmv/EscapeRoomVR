@@ -9,7 +9,7 @@ public class AntiTrollSystem : MonoBehaviour
     {
         _as = GetComponent<AudioSource>();
     }
-    void OnTriggernEnter(Collider other) 
+    void OnTriggerEnter(Collider other) 
     {
         _as.Play();
         if (other.gameObject.layer == 9)GameManager.GetInstance().EndGame(false, "Why do you kill yourself. You have drowned");

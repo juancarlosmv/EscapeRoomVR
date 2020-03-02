@@ -1703,6 +1703,8 @@ GameObject:
   - component: {fileID: 6113788921661629809}
   - component: {fileID: 6113788921661629808}
   - component: {fileID: 6113788921661629823}
+  - component: {fileID: 5301772462818646834}
+  - component: {fileID: 3021777838958685777}
   m_Layer: 8
   m_Name: WeighingMachine
   m_TagString: Untagged
@@ -1750,7 +1752,7 @@ Rigidbody:
   m_Drag: 0.5
   m_AngularDrag: 0.05
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 14
   m_CollisionDetection: 0
@@ -1781,6 +1783,52 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _text: {fileID: 6113788920420148727}
   _sum: 20
+--- !u!114 &5301772462818646834
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6113788921661629822}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2bf54ce294b227b47ac4df4bf0028c9c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnOverEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  OnOffEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  OnClickEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3021777838958685777}
+        m_MethodName: GetGrabbed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &3021777838958685777
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6113788921661629822}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89286d6f3c88be649a28e6d2c469d609, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CanBeGrabbed: 0
+  IsDistanceGrabbable: 0
 --- !u!1 &6113788921846586661
 GameObject:
   m_ObjectHideFlags: 0

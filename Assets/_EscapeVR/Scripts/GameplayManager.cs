@@ -49,7 +49,7 @@ public class GameplayManager : MonoBehaviour
                 }
                 break;
             case "Taller":
-                if (_game.GetComponent<PipeGridController>().PathOk(0)) 
+                if (_game.GetComponent<PipeGridController>().AllOk()) 
                 {
                     _navigationPanel.SetActive(true);
                     _instructions.text = "Go to the warehouse, there is your little submarine";

@@ -7,12 +7,13 @@ public class WeighingMachine : MonoBehaviour
 {
     [SerializeField] Text _text;
     [SerializeField] int _sum;
+    bool ok = false;
 
     int _content = 0;
 
     void Update()
     {   
-     _text.text = _content.ToString();
+     _text.text = (_sum - _content).ToString();
         if (_content == _sum)
             CorrectWeight();
     }
@@ -21,7 +22,6 @@ public class WeighingMachine : MonoBehaviour
         if (other.gameObject.CompareTag("Weight"))
         {
             _content += other.gameObject.GetComponent<Weight>().WeightValue;
-            other.gameObject.GetComponent<Weight>().OnMachine = true;
         }
     }
     void OnCollisionExit(Collision other)
@@ -29,12 +29,15 @@ public class WeighingMachine : MonoBehaviour
         if (other.gameObject.CompareTag("Weight"))
         {
             _content -= other.gameObject.GetComponent<Weight>().WeightValue;
-            other.gameObject.GetComponent<Weight>().OnMachine = false;
         }
     }
     void CorrectWeight() 
     {
+        ok = true;
         _text.color = Color.green;
-        GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+        GetComponent<GrabableObj>().CanBeGrabbed = true;
+        GetComponent<Rigidbody>().isKinematic = false;
+        //GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
     }
+    public bool IsOk => ok;
 }

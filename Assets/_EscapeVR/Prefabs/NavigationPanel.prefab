@@ -510,7 +510,7 @@ PrefabInstance:
     - target: {fileID: 870794121819709019, guid: d1e50c7a8c1099648b0260a31c23b45c,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.98498535
+      value: -0.964
       objectReference: {fileID: 0}
     - target: {fileID: 870794121819709019, guid: d1e50c7a8c1099648b0260a31c23b45c,
         type: 3}
@@ -598,6 +598,16 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 2b9514cee023b6c46ba9cc494a52dcf6, type: 2}
+    - target: {fileID: 870794121001268186, guid: d1e50c7a8c1099648b0260a31c23b45c,
+        type: 3}
+      propertyPath: code
+      value: 48
+      objectReference: {fileID: 0}
+    - target: {fileID: 870794121001268186, guid: d1e50c7a8c1099648b0260a31c23b45c,
+        type: 3}
+      propertyPath: NavigationPanel
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8132745947192302521, guid: d1e50c7a8c1099648b0260a31c23b45c,
         type: 3}
       propertyPath: m_Color.r
@@ -754,6 +764,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Mesh
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 870794121001268186, guid: d1e50c7a8c1099648b0260a31c23b45c,
+        type: 3}
+      propertyPath: NavigationPanel
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8132745947192302521, guid: d1e50c7a8c1099648b0260a31c23b45c,
         type: 3}

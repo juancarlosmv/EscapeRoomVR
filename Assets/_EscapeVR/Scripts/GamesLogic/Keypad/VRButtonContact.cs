@@ -22,23 +22,30 @@ public class VRButtonContact : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        // Activate button puch only if the button enters the trigger
-        if (SceneManager.GetActiveScene().name != "Menu" && other.gameObject.GetInstanceID() == pushButton.GetInstanceID())
+        if (other.gameObject.GetInstanceID() == pushButton.GetInstanceID())
         {
-            buttonController.ProcessPush(code);
-        }
-        else 
-        {
-            if (code == 4) GameManager.GetInstance().LoadScene("TestMechanics", 2);
-            else if (code == 9) GameManager.GetInstance().QuitGame();
-            else
+            // Activate button puch only if the button enters the trigger
+            if (SceneManager.GetActiveScene().name != "Menu" && other.gameObject.GetInstanceID() == pushButton.GetInstanceID() && !NavigationPanel)
             {
-                GameManager.GetInstance().Difficulty = code;
-                GameManager.GetInstance().SetDifficultyTimming();
-                GameManager.GetInstance().LoadScene("SalaCentral", 2);
+                buttonController.ProcessPush(code);
             }
+            else if (NavigationPanel)
+            {
+                if (code == '9') GameManager.GetInstance().QuitGame();
+                else if (code == 'm') GameManager.GetInstance().LoadScene("Menu");
+                else GameplayManager.GetInstance().NextScene();
+            }
+            else if (SceneManager.GetActiveScene().name == "Menu")
+            {
+                if (code == '4') GameManager.GetInstance().LoadScene("TestMechanics", 2);
+                else
+                {
+                    GameManager.GetInstance().Difficulty = code;
+                    GameManager.GetInstance().SetDifficultyTimming();
+                    GameManager.GetInstance().LoadScene("SalaCentral", 2);
+                }
+            }
+            _as.PlayOneShot(_as.clip);
         }
-        if (NavigationPanel)  GameplayManager.GetInstance().NextScene();
-        _as.Play();
     }
 }

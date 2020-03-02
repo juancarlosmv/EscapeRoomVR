@@ -334,4 +334,11 @@ public class PipeGridController : MonoBehaviour
         if (ind >= salidas.Length) return false;
         return salidas[ind].active;
     }
+
+    public bool AllOk()
+    {
+        bool ok = true;
+        for (int i = 0; i < salidas.Length; i++) ok = ok && PathOk(i);
+        return ok;
+    }
 }

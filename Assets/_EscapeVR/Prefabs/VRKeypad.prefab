@@ -361,6 +361,7 @@ MonoBehaviour:
   text: {fileID: 4049270999197739426}
   pass: 1234
   led: {fileID: 0}
+  CorrectPassword: 0
 --- !u!65 &531028549314133537
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -451,6 +452,11 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 5690429694039902841, guid: d1e50c7a8c1099648b0260a31c23b45c,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -0.0116
+      objectReference: {fileID: 0}
     - target: {fileID: 870794121738065413, guid: d1e50c7a8c1099648b0260a31c23b45c,
         type: 3}
       propertyPath: m_Mesh
@@ -465,11 +471,6 @@ PrefabInstance:
         type: 3}
       propertyPath: code
       value: 49
-      objectReference: {fileID: 0}
-    - target: {fileID: 5690429694039902841, guid: d1e50c7a8c1099648b0260a31c23b45c,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: -0.0116
       objectReference: {fileID: 0}
     - target: {fileID: 8132745947192302521, guid: d1e50c7a8c1099648b0260a31c23b45c,
         type: 3}
@@ -1441,6 +1442,11 @@ PrefabInstance:
       propertyPath: buttonController
       value: 
       objectReference: {fileID: 3425989087810495926}
+    - target: {fileID: 870794121001268186, guid: d1e50c7a8c1099648b0260a31c23b45c,
+        type: 3}
+      propertyPath: code
+      value: 48
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d1e50c7a8c1099648b0260a31c23b45c, type: 3}
 --- !u!4 &2566524364389636348 stripped
