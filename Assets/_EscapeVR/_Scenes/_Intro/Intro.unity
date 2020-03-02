@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.4625349, g: 0.6578373, b: 0.70713216, a: 1}
+  m_IndirectSpecularColor: {r: 0.4584058, g: 0.65907234, b: 0.708282, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -57,7 +57,7 @@ LightmapSettings:
     serializedVersion: 12
     m_Resolution: 2
     m_BakeResolution: 40
-    m_AtlasSize: 1024
+    m_AtlasSize: 2048
     m_AO: 0
     m_AOMaxDistance: 1
     m_CompAOExponent: 1
@@ -351,7 +351,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 4
+  m_Lightmapping: 2
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
@@ -1712,21 +1712,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8372637885716891453, guid: 63636c181c13753419fce8cfa275720b,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8828771513414689892, guid: 63636c181c13753419fce8cfa275720b,
-        type: 3}
-      propertyPath: m_Name
-      value: Timer
-      objectReference: {fileID: 0}
-    - target: {fileID: 8828771513414689892, guid: 63636c181c13753419fce8cfa275720b,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3391018835060841780, guid: 63636c181c13753419fce8cfa275720b,
         type: 3}
       propertyPath: m_Constraints
@@ -1741,6 +1726,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Enabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8372637885716891453, guid: 63636c181c13753419fce8cfa275720b,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8828771513414689892, guid: 63636c181c13753419fce8cfa275720b,
+        type: 3}
+      propertyPath: m_Name
+      value: Timer
+      objectReference: {fileID: 0}
+    - target: {fileID: 8828771513414689892, guid: 63636c181c13753419fce8cfa275720b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3434746984195182665, guid: 63636c181c13753419fce8cfa275720b,
         type: 3}
@@ -2665,8 +2665,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: -6465295006441776248, guid: e338c67aaf0f0944ab28cdc3a3f7c563,
-        type: 3}
+      objectReference: {fileID: 2100000, guid: c69415b813f6f334ba6ad15d941d2fb1, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 92099219e6ccb3844af0d9f41356a04b, type: 3}
 --- !u!1 &2091792130
